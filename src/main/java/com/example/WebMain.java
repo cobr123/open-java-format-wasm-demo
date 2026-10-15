@@ -21,6 +21,7 @@ import javax.tools.JavaFileObject;
 import com.example.JavacCompilerWrapper.FileContent;
 import com.example.preload.PreLoadedFiles;
 import com.palantir.javaformat.java.Formatter;
+import com.palantir.javaformat.java.Main;
 import org.graalvm.webimage.api.JS;
 import org.graalvm.webimage.api.JSBoolean;
 import org.graalvm.webimage.api.JSObject;
@@ -49,6 +50,10 @@ public class WebMain {
         setDisabled(false);
     }
 
+    private static String versionString() {
+        return "open-java-format: Version " + Main.class.getPackage().getImplementationVersion();
+    }
+
     private static void compileCallback() {
         OUTPUT.set("innerHTML", "");
         setDisabled(true);
@@ -61,13 +66,13 @@ public class WebMain {
 
                 long nanos = System.nanoTime() - start;
                 double millis = nanos / 1e6;
-                appendOutput("SUCCESS " + millis + "ms");
+                appendOutput("SUCCESS " + millis + "ms (" + versionString() + ")");
                 appendOutput("");
                 appendOutput(res);
             } catch (Throwable e) {
                 long nanos = System.nanoTime() - start;
                 double millis = nanos / 1e6;
-                appendOutput("ERROR " + millis + "ms");
+                appendOutput("ERROR " + millis + "ms (" + versionString() + ")");
                 appendOutput("");
                 StringWriter sw = new StringWriter();
                 PrintWriter pw = new PrintWriter(sw);
