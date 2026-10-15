@@ -27,3 +27,7 @@ This demo requires:
    This will serve the `web` directory locally on port `8000`.
 
 3. Navigate to http://localhost:8000 to format Java programs in the browser.
+
+## See also
+- [javac](https://github.com/graalvm/graalvm-demos/blob/master/web-image/javac/README.md)
+- [web-image](https://github.com/oracle/graal/tree/master/web-image)
