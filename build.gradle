@@ -1,0 +1,38 @@
+
+plugins {
+    id 'java'
+    id 'org.graalvm.buildtools.native' version '0.10.6'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'dev.openjavaformat:open-java-format:2.98.0.6'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.compilerArgs.addAll([
+            '-parameters',
+            '--add-exports=jdk.jdeps/com.sun.tools.javap=ALL-UNNAMED',
+            '--add-modules=jdk.jdeps'
+    ])
+}
+
+graalvmNative {
+    binaries {
+        main {
+            javaLauncher = javaToolchains.launcherFor {
+                languageVersion = JavaLanguageVersion.of(25)
+            }
+            mainClass = 'com.example.WebMain'
+            imageName = '../../../web/open-java-format'
+            buildArgs.addAll('--tool:svm-wasm', '-g')
+        }
+    }
+}

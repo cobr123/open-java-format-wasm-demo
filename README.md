@@ -15,7 +15,7 @@ This demo requires:
 
 1. Build the Wasm module with the `open-java-format-web` profile:
     ```bash
-    mvn -Popen-java-format-web package
+    gradle nativeCompile
     ```
     This command generates a Wasm file and a corresponding JavaScript binding in the `web` directory.
 
