@@ -19,8 +19,9 @@ import org.graalvm.webimage.api.JSString;
 
 
 public class WebMain {
-    public static final JSObject COMPILE_BUTTON = getElementById("compile");
-    public static final JSObject OUTPUT = getElementById("diagnostics");
+    public static final JSObject COMPILE_BUTTON = getElementById("format");
+    public static final JSObject OUTPUT = getElementById("formatted_source");
+    public static final JSObject OUTPUT_TIME = getElementById("formatted_source_time");
     public static final JSObject INPUT = getElementById("source");
 
     public static void main(String[] args) {
@@ -39,7 +40,7 @@ public class WebMain {
     }
 
     private static void compileCallback() {
-        OUTPUT.set("innerHTML", "");
+        resetOutput();
         setDisabled(true);
 
         runAsync(() -> {
@@ -50,9 +51,10 @@ public class WebMain {
 
                 long nanos = System.nanoTime() - start;
                 double millis = nanos / 1e6;
-                appendOutput("SUCCESS " + millis + "ms (" + versionString() + ")");
+                setOutputTime("SUCCESS " + millis + "ms (" + versionString() + ")");
                 appendOutput("");
                 appendOutput(res);
+                highlightCode();
             } catch (Throwable e) {
                 long nanos = System.nanoTime() - start;
                 double millis = nanos / 1e6;
@@ -100,32 +102,41 @@ public class WebMain {
     public static native JSObject getElementById(String id);
 
     @JS.Coerce
-    @JS("return document.createElement(tag);")
-    public static native JSObject createElement(String tag);
-
-    @JS.Coerce
-    @JS("return document.createTextNode(text);")
-    public static native JSObject createTextNode(String text);
-
-    @JS.Coerce
     @JS("elem.setAttribute(attribute, value);")
     public static native void setAttribute(JSObject elem, String attribute, Object value);
 
     @JS.Coerce
-    @JS("parent.appendChild(child);")
-    public static native void appendChild(JSObject parent, JSObject child);
+    @JS("highlightCode();")
+    public static native void highlightCodeImpl();
+
+    public static void highlightCode(){
+        try {
+            highlightCodeImpl();
+        } catch (Throwable e) {
+            if (e.getLocalizedMessage().contains("highlightCode is not defined")) {
+                System.err.println(e.getLocalizedMessage());
+            } else {
+                System.err.println("Uncaught exception in highlightCode");
+                e.printStackTrace();
+            }
+        }
+    }
 
     public static String getSource() {
         return ((JSString) INPUT.get("innerText")).asString();
     }
 
     public static void resetOutput() {
-        setDisabled(false);
         OUTPUT.set("innerHTML", "");
+        OUTPUT_TIME.set("innerHTML", "");
     }
 
     public static void appendOutput(String val) {
         OUTPUT.set("innerHTML", ((JSString) OUTPUT.get("innerHTML")).asString() + val + '\n');
+    }
+
+    public static void setOutputTime(String val) {
+        OUTPUT_TIME.set("innerHTML", val);
     }
 
     private static void setDisabled(boolean state) {

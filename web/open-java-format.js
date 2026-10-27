@@ -1426,6 +1426,11 @@ wasmImports.jsbody = {
 			return document.getElementById(id);
 		}catch( e ) {
 			conversion.handleJSError(e);}}).call(...args),
+	'_WebMain.highlightCodeImpl___V' : (...args) => (function(){
+		try{
+			highlightCode();
+		}catch( e ) {
+			conversion.handleJSError(e);}}).call(...args),
 	'_WebMain.runAsync___Runnable_V' : (...args) => (function(r){
 		try{
 			setTimeout(r, 0);
