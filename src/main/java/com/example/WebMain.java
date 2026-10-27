@@ -58,7 +58,7 @@ public class WebMain {
             } catch (Throwable e) {
                 long nanos = System.nanoTime() - start;
                 double millis = nanos / 1e6;
-                appendOutput("ERROR " + millis + "ms (" + versionString() + ")");
+                setOutputTime("ERROR " + millis + "ms (" + versionString() + ")");
                 appendOutput("");
                 StringWriter sw = new StringWriter();
                 PrintWriter pw = new PrintWriter(sw);
