@@ -1316,16 +1316,6 @@ wasmImports.jsbody = {
 			return conversion.toProxy(toJavaString(this.toString()));
 		}catch( e ) {
 			conversion.handleJSError(e);}}).call(...args),
-	'_JSBoolean.createFalse___JSBoolean' : (...args) => (function(){
-		try{
-			return false;
-		}catch( e ) {
-			conversion.handleJSError(e);}}).call(...args),
-	'_JSBoolean.createTrue___JSBoolean' : (...args) => (function(){
-		try{
-			return true;
-		}catch( e ) {
-			conversion.handleJSError(e);}}).call(...args),
 	'_JSBoolean.javaBoolean___Boolean' : (...args) => (function(){
 		try{
 			return conversion.toProxy(conversion.createJavaBoolean(this));
@@ -1366,14 +1356,14 @@ wasmImports.jsbody = {
 			return conversion.toProxy(conversion.createJavaDouble(this));
 		}catch( e ) {
 			conversion.handleJSError(e);}}).call(...args),
-	'_JSObject.call___Object$Ljava_lang_Object__Object' : (...args) => (function(thisArg,args){
+	'_JSNumber.of___D_JSNumber' : (...args) => (function(d){
 		try{
-			return this.apply(thisArg, conversion.extractJavaScriptArray(args[runtime.symbol.javaNative]));
+			return conversion.extractJavaScriptNumber(d[runtime.symbol.javaNative]);
 		}catch( e ) {
 			conversion.handleJSError(e);}}).call(...args),
-	'_JSObject.extractFacadeClass___Class_Object' : (...args) => (function(cls){
+	'_JSObject.create___JSObject' : (...args) => (function(){
 		try{
-			return conversion.tryExtractFacadeClass(this, cls);
+			return conversion.createAnonymousJavaScriptObject();
 		}catch( e ) {
 			conversion.handleJSError(e);}}).call(...args),
 	'_JSObject.get___Object_Object' : (...args) => (function(key){
@@ -1416,29 +1406,9 @@ wasmImports.jsbody = {
 			return sym0 === sym1;
 		}catch( e ) {
 			conversion.handleJSError(e);}}).call(...args),
-	'_WebMain.addEventListenerImpl___JSObject_String_EventHandler_V' : (...args) => (function(o,event,handler){
+	'_WebMain.exportToBrowser___Function_V' : (...args) => (function(formatter){
 		try{
-			o.addEventListener(event, (e) => handler(e));
-		}catch( e ) {
-			conversion.handleJSError(e);}}).call(...args),
-	'_WebMain.getElementById___String_JSObject' : (...args) => (function(id){
-		try{
-			return document.getElementById(id);
-		}catch( e ) {
-			conversion.handleJSError(e);}}).call(...args),
-	'_WebMain.highlightCodeImpl___V' : (...args) => (function(){
-		try{
-			highlightCode();
-		}catch( e ) {
-			conversion.handleJSError(e);}}).call(...args),
-	'_WebMain.runAsync___Runnable_V' : (...args) => (function(r){
-		try{
-			setTimeout(r, 0);
-		}catch( e ) {
-			conversion.handleJSError(e);}}).call(...args),
-	'_WebMain.setAttribute___JSObject_String_Object_V' : (...args) => (function(elem,attribute,value){
-		try{
-			elem.setAttribute(attribute, value);
+			globalThis.formatByOpenJavaFormatter = formatter;
 		}catch( e ) {
 			conversion.handleJSError(e);}}).call(...args),
 }
