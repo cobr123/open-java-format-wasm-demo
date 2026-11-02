@@ -1,7 +1,6 @@
 
 plugins {
     id 'java'
-    id 'org.graalvm.buildtools.native' version '1.1.11'
 }
 
 group = 'org.example'
@@ -11,28 +10,10 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    implementation 'dev.openjavaformat:open-java-format:21.0.1'
-}
-
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8'
-    options.compilerArgs.addAll([
-            '-parameters',
-            '--add-exports=jdk.jdeps/com.sun.tools.javap=ALL-UNNAMED',
-            '--add-modules=jdk.jdeps'
-    ])
-}
-
-graalvmNative {
-    binaries {
-        main {
-            javaLauncher = javaToolchains.launcherFor {
-                languageVersion = JavaLanguageVersion.of(25)
-            }
-            mainClass = 'com.example.WebMain'
-            imageName = '../../../web/open-java-format'
-            buildArgs.addAll('--tool:svm-wasm', '-g')
-        }
-    }
+tasks.register('nativeCompile') {
+    group = 'build'
+    description = 'Runs nativeCompile on all subprojects'
+    dependsOn subprojects.collect { sub ->
+        sub.tasks.findByName('nativeCompile')
+    }.findAll { it != null }
 }

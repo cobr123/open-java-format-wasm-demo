@@ -1406,7 +1406,7 @@ wasmImports.jsbody = {
 			return sym0 === sym1;
 		}catch( e ) {
 			conversion.handleJSError(e);}}).call(...args),
-	'_WebMain.exportToBrowser___Function_V' : (...args) => (function(formatter){
+	'_WebOpenMain.exportToBrowser___Function_V' : (...args) => (function(formatter){
 		try{
 			globalThis.formatByOpenJavaFormatter = formatter;
 		}catch( e ) {

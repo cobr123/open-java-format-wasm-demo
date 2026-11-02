@@ -1,1 +1,5 @@
 rootProject.name = 'open-java-format-wasm-demo'
+
+include 'open-formatter'
+include 'palantir-formatter'
+include 'google-formatter'
