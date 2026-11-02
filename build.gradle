@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'dev.openjavaformat:open-java-format:2.98.0.6'
+    implementation 'dev.openjavaformat:open-java-format:21.0.1'
 }
 
 tasks.withType(JavaCompile).configureEach {
