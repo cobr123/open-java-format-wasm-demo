@@ -146,18 +146,24 @@
         </style>
         <script>
             function formatByOpen() {
+                if (typeof formatByOpenJavaFormatter !== 'function') {
+                    document.getElementById('formatted_source').textContent = "Wasm module formatByOpen is still loading...";
+                }
                 format(formatByOpenJavaFormatter, 'formatByOpen');
             }
             function formatByPalantir() {
+                if (typeof formatByPalantirJavaFormatter !== 'function') {
+                    document.getElementById('formatted_source').textContent = "Wasm module formatByPalantir is still loading...";
+                }
                 format(formatByPalantirJavaFormatter, 'formatByPalantir');
             }
             function formatByGoogle() {
+                if (typeof formatByGoogleJavaFormatter !== 'function') {
+                    document.getElementById('formatted_source').textContent = "Wasm module formatByGoogle is still loading...";
+                }
                 format(formatByGoogleJavaFormatter, 'formatByGoogle');
             }
             function format(formatBy, buttonId) {
-                if (typeof globalThis.formatBy !== 'function') {
-                    document.getElementById('formatted_source').textContent = "Wasm module is still loading...";
-                }
                 const button = document.getElementById(buttonId);
                 const source = document.getElementById('source');
                 try {
