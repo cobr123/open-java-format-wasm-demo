@@ -32,7 +32,7 @@ graalvmNative {
             }
             mainClass = 'com.example.WebPalantirMain'
             imageName = '../../../../web/palantir-java-format'
-            buildArgs.addAll('--tool:svm-wasm', '-g')
+            buildArgs.addAll('--tool:svm-wasm')
         }
     }
 }

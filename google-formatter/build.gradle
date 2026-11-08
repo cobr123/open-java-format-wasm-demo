@@ -32,7 +32,7 @@ graalvmNative {
             }
             mainClass = 'com.example.WebGoogleMain'
             imageName = '../../../../web/google-java-format'
-            buildArgs.addAll('--tool:svm-wasm', '-g')
+            buildArgs.addAll('--tool:svm-wasm')
         }
     }
 }
