@@ -31,7 +31,7 @@ public class WebGoogleMain {
         result.setVersion(versionString());
         try {
             var f = new Formatter();
-            result.setFormattedSource(f.formatSource(source.asString()));
+            result.setFormattedSource(f.formatSourceAndFixImports(source.asString()));
             result.setStatus("SUCCESS");
 
             long nanos = System.nanoTime() - start;

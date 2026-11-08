@@ -31,7 +31,7 @@ public class WebPalantirMain {
         result.setVersion(versionString());
         try {
             var f = Formatter.create();
-            result.setFormattedSource(f.formatSource(source.asString()));
+            result.setFormattedSource(f.formatSourceAndFixImports(source.asString()));
             result.setStatus("SUCCESS");
 
             long nanos = System.nanoTime() - start;
